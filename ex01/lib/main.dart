@@ -12,12 +12,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: Theme.of(context).copyWith(
         textTheme: const TextTheme(
-            headline5: TextStyle(
-                fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold),
-            headline3: TextStyle(
-              fontSize: 26,
-              color: Colors.purple,
-            )),
+          headline5: TextStyle(
+              fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold),
+          headline3: TextStyle(
+            fontSize: 26,
+            color: Colors.purple,
+          ),
+        ),
       ),
       title: "MyApp",
       home: const MainScreen(),
