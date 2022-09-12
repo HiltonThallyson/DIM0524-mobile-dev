@@ -8,12 +8,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late int peopleQuantity;
+  late int _peopleQuantity;
 
   @override
   void initState() {
     super.initState();
-    peopleQuantity = 0;
+    _peopleQuantity = 0;
   }
 
   @override
@@ -41,17 +41,25 @@ class _MainScreenState extends State<MainScreen> {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  "People count: $peopleQuantity",
+                  "People count: $_peopleQuantity/20",
                   style: Theme.of(context).textTheme.headline3,
                 ),
+                _peopleQuantity == 20
+                    ? const Text(
+                        "Lotado! Tente novamente entrar depois",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      )
+                    : const SizedBox(
+                        height: 5,
+                      ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                       onPressed: () {
-                        if (peopleQuantity > 0) {
+                        if (_peopleQuantity > 0) {
                           setState(() {
-                            peopleQuantity--;
+                            _peopleQuantity--;
                           });
                         }
                       },
@@ -68,9 +76,11 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        setState(() {
-                          peopleQuantity++;
-                        });
+                        if (_peopleQuantity < 20) {
+                          setState(() {
+                            _peopleQuantity++;
+                          });
+                        }
                       },
                       child: const Text(
                         "+1",
