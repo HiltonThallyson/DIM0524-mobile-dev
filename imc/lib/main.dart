@@ -103,6 +103,8 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(200, 40)),
                         onPressed: () => _formKey.currentState!.validate()
                             ? _calcular()
                             : null,
