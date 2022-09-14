@@ -76,6 +76,8 @@ class _HomeState extends State<Home> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Insira um peso";
+                      } else if (double.parse(value) < 0) {
+                        return "Insira um peso válido";
                       } else {
                         return null;
                       }
@@ -91,6 +93,8 @@ class _HomeState extends State<Home> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Insira uma altura";
+                      } else if (double.parse(value) < 0) {
+                        return "Insira uma altura válida";
                       } else {
                         return null;
                       }
