@@ -37,7 +37,6 @@ class _HomeState extends State<Home> {
   void _calcular() {
     final peso = double.parse(pesoController.text);
     final altura = double.parse(alturaController.text) / 100;
-    ;
     final imc = peso / (pow(altura, 2));
 
     setState(() {
