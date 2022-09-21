@@ -17,6 +17,9 @@ class Result extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(_imagem),
+              const SizedBox(
+                height: 10,
+              ),
               Text(
                 _texto,
                 style: const TextStyle(fontSize: 18),
