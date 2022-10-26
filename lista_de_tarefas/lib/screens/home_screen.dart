@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _addToDo() async {
+  void _addToDo() {
     setState(() {
       Map<String, dynamic> newTodo = {};
       newTodo["title"] = _todoController.text;
@@ -38,11 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _removeToDo(int index) async {
+  void _removeToDo(int index) {
     _lastRemoved = Map.from(_todoList[index]);
     _lastRemovedPos = index;
     setState(() {
       _todoList.removeAt(index);
+      DataHandler.saveData(_todoList);
+    });
+  }
+
+  void _cancelarRemocao() {
+    setState(() {
+      _todoList.insert(_lastRemovedPos, _lastRemoved);
       DataHandler.saveData(_todoList);
     });
   }
@@ -56,8 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -79,6 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: _todoList.length,
@@ -95,8 +106,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   direction: DismissDirection.startToEnd,
-                  onDismissed: (_) => _removeToDo(index),
+                  onDismissed: (_) {
+                    _removeToDo(index);
+                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        "Tarefa ${_lastRemoved["title"]} removida.",
+                      ),
+                      action: SnackBarAction(
+                          label: "Desfazer", onPressed: _cancelarRemocao),
+                      duration: const Duration(seconds: 2),
+                    ));
+                  },
                   child: CheckboxListTile(
+                    contentPadding: const EdgeInsets.only(left: 0),
                     title: Text(
                       _todoList[index]["title"],
                       style: const TextStyle(color: Colors.blueAccent),
@@ -110,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onChanged: ((value) {
                       setState(() {
                         _todoList[index]["ok"] = !_todoList[index]["ok"];
+                        DataHandler.saveData(_todoList);
                       });
                     }),
                   ),
