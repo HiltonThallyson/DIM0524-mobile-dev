@@ -72,7 +72,9 @@ class ContactHelper {
   Future<int> updateContact(Contact updatedContact) async {
     Database? contactDb = await db;
     if (contactDb != null) {
-      return await contactDb.update(Contact.contactTable, updatedContact.toMap(), where: "${Contact.contactId} = ?", whereArgs: [updatedContact.id])
+      return await contactDb.update(
+          Contact.contactTable, updatedContact.toMap(),
+          where: "${Contact.contactId} = ?", whereArgs: [updatedContact.id]);
     }
     return 0;
   }
@@ -81,6 +83,12 @@ class ContactHelper {
     Database? contactDb = await db;
     if (contactDb != null) {
       List list = await contactDb.query(Contact.contactTable);
+      if (list.isNotEmpty) {
+        return list.map((contact) => Contact.fromMap(contact)).toList();
+      } else {
+        return [];
+      }
     }
+    return [];
   }
 }
