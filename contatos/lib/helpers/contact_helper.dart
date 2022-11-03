@@ -18,11 +18,12 @@ class ContactHelper {
 
   Future<Database> initDb() async {
     String? databasesPath = await getDatabasesPath();
-    if (databasesPath == null) databasesPath = "";
+    databasesPath ??= "";
     String dbPath = join(databasesPath, "contacts.db");
 
-    return await openDatabase(dbPath, version: 1, onCreate: (db, version) {
-      db.execute(
+    return await openDatabase(dbPath, version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute(
           "CREATE TABLE ${Contact.contactTable}(${Contact.contactId} INTEGER PRIMARY KEY,"
           "${Contact.nameColumn} TEXT, "
           "${Contact.emailColumn} TEXT, "
