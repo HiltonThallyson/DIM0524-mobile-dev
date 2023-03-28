@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Contatos"),
       ),
       body: ListView.builder(
@@ -36,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed("/contact-page"),
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.of(context).pushNamed("/contact-screen"),
       ),
     );
   }

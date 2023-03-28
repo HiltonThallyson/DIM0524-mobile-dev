@@ -9,7 +9,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
       routes: {
-        "contact-screen": (context) => ContactScreen(),
+        ContactScreen.route: (context) => ContactScreen(),
       },
     ),
   );

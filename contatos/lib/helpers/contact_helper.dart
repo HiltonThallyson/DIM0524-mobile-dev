@@ -24,11 +24,7 @@ class ContactHelper {
     return await openDatabase(dbPath, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
-          "CREATE TABLE ${Contact.contactTable}(${Contact.contactId} INTEGER PRIMARY KEY,"
-          "${Contact.nameColumn} TEXT, "
-          "${Contact.emailColumn} TEXT, "
-          "${Contact.phoneColumn} TEXT, "
-          "${Contact.imageColumn} TEXT, ");
+          "CREATE TABLE ${Contact.contactTable}('${Contact.contactId} INTEGER PRIMARY KEY, ${Contact.nameColumn} TEXT, ${Contact.emailColumn} TEXT,  ${Contact.phoneColumn} TEXT, ${Contact.imageColumn} TEXT,')");
     });
   }
 
